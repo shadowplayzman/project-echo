@@ -13,13 +13,14 @@ size = Vector2(2000, 100)
 z_index = 7
 position = Vector2(0, 1)
 acceleration = 2400.0
-deacceleration = 3500.0
+deacceleration = 2800.0
+Jump_force = -450.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=767589663]
 physics_material_override = SubResource("PhysicsMaterial_11jfd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=743814432]
-position = Vector2(4, 73)
+position = Vector2(1, 66)
 shape = SubResource("RectangleShape2D_w20ko")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1357988912]
