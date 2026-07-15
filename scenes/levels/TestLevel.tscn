@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bctjnfkdpjn8r"]
+
+[ext_resource type="PackedScene" uid="uid://bep73ig8fxi8i" path="res://scenes/player.tscn" id="1_86d4f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_11jfd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w20ko"]
+size = Vector2(2000, 100)
+
+[node name="TestLevel" type="Node2D" unique_id=424540446]
+
+[node name="player" parent="." unique_id=1271097435 instance=ExtResource("1_86d4f")]
+z_index = 7
+position = Vector2(0, 1)
+acceleration = 2400.0
+deacceleration = 3500.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=767589663]
+physics_material_override = SubResource("PhysicsMaterial_11jfd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=743814432]
+position = Vector2(4, 73)
+shape = SubResource("RectangleShape2D_w20ko")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1357988912]
+offset_left = -346.0
+offset_top = -129.0
+offset_right = -99.0
+offset_bottom = 21.0
+color = Color(0.13333334, 1, 1, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1900376650]
+offset_left = -101.0
+offset_top = -131.0
+offset_right = 146.0
+offset_bottom = 19.0
+color = Color(0.13333334, 1, 0.050980393, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=779405798]
+offset_left = 146.0
+offset_top = -127.0
+offset_right = 393.0
+offset_bottom = 23.0
+color = Color(1, 0.31764707, 1, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=1050093122]
+offset_left = 394.0
+offset_top = -127.0
+offset_right = 641.0
+offset_bottom = 23.0
+color = Color(0.13333334, 0.0627451, 1, 1)
