@@ -142,6 +142,7 @@ z_index = 7
 position = Vector2(0, 1)
 gravity = 2400.0
 dash_speed = 600.0
+dash_duration = 0.18
 dash_cooldown = 0.6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=767589663]
