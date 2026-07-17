@@ -189,7 +189,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle",
-"speed": 15.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -218,7 +218,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"jump",
-"speed": 15.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -287,16 +287,22 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x115k"]
-radius = 8.0
+radius = 5.0
 
 [node name="player" type="CharacterBody2D" unique_id=1271097435]
 script = ExtResource("1_3vyb7")
+max_speed = 350.0
+acceleration = 2200.0
+deceleration = 2600.0
+gravity = 1200.0
+jump_velocity = -550.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1659192228]
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_11jfd")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
+frame_progress = 0.5710275
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=161671843]
 shape = SubResource("CapsuleShape2D_x115k")
