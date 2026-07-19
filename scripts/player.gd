@@ -33,7 +33,18 @@ var dash_cooldown_timer:float=0.0
 
 var dash_direction :Vector2=Vector2.ZERO
 
+@export_group("Respawn")
+@export var respawn_delay=0.5
+
+var is_dead:bool=false
+var respawn_position=Vector2.ZERO
+
+func _ready() -> void:
+	respawn_position=global_position
+
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
 	update_ground_dash_cooldown(delta)
 	update_air_dash_reset()
 	if Input.is_action_just_pressed("dash"):
@@ -145,6 +156,23 @@ func update_ground_dash_cooldown(delta:float)->void:
 	
 	if dash_cooldown_timer==0.0:
 		dash_available=true
+
+func die()->void:
+	if is_dead:
+		return
+	
+	is_dead=true
+	velocity=Vector2.ZERO
+	
+	await get_tree().create_timer(respawn_delay).timeout
+	
+	global_position=respawn_position
+	velocity=Vector2.ZERO
+	
+	is_dead=false
+	
+func set_respawn_position(position:Vector2)->void:
+	respawn_position=position
 	
 	
 	
