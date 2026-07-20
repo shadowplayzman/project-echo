@@ -99,6 +99,8 @@ func handle_jump()->void:
 		velocity.y=jump_velocity
 		coyote_timer=0.0
 		jump_buffer_timer=0.0
+		$JumpDust.restart()
+		$JumpDust.emitting = true
 		
 func variable_jump()->void:
 	if Input.is_action_just_released("jump") and velocity.y<0:
