@@ -1,5 +1,7 @@
 extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var dust_clouds: GPUParticles2D = $jumpDust/dustClouds
+@onready var jump_debris: GPUParticles2D = $jumpDust/jumpDebris
 
 
 @export_group("Movement")
@@ -96,14 +98,18 @@ func apply_gravity(delta:float)->void:
 		
 func handle_jump()->void:
 	if jump_buffer_timer>0.0 and coyote_timer>0.0:
-		velocity.y=jump_velocity
 		coyote_timer=0.0
 		jump_buffer_timer=0.0
-		$JumpDust.restart()
-		$JumpDust.emitting = true
+		dust_clouds.restart()
+		dust_clouds.emitting = true
+
+		jump_debris.restart()
+		jump_debris.emitting = true
+
+		velocity.y=jump_velocity
 		
 func variable_jump()->void:
-	if Input.is_action_just_released("jump") and velocity.y<0:
+	if !Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y*=jump_cut_multiplier
 		
 func update_animation()->void:
@@ -162,8 +168,12 @@ func update_ground_dash_cooldown(delta:float)->void:
 func die()->void:
 	if is_dead:
 		return
-	
 	is_dead=true
+	play_animation("die")
+	
+	is_dashing = false
+	dash_timer = 0.0
+	dash_direction = Vector2.ZERO
 	velocity=Vector2.ZERO
 	
 	await get_tree().create_timer(respawn_delay).timeout
@@ -172,6 +182,7 @@ func die()->void:
 	velocity=Vector2.ZERO
 	
 	is_dead=false
+	
 	
 func set_respawn_position(position:Vector2)->void:
 	respawn_position=position
