@@ -1,7 +1,9 @@
 extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dust_clouds: GPUParticles2D = $jumpDust/dustClouds
-@onready var jump_debris: GPUParticles2D = $jumpDust/jumpDebris
+@onready var jump_debris: GPUParticles2D = $jumpDust/debris
+@onready var landing_dust_clouds: GPUParticles2D = $landingDust/dustClouds
+@onready var landing_debris: GPUParticles2D = $landingDust/debris
 
 
 @export_group("Movement")
@@ -22,6 +24,12 @@ extends CharacterBody2D
 @export var dash_speed:float=900.0
 @export var dash_duration:float=0.15
 @export var dash_cooldown : float=0.3
+
+var was_on_floor := false
+var landing_velocity := 0.0
+var is_landing:=false
+var landing_timer:=0.0
+var landing_time:=0.08
 
 var coyote_timer:float=0.0
 var jump_buffer_timer:float=0.0
@@ -47,6 +55,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	if is_landing:
+		landing_timer -= delta
+		if landing_timer <= 0:
+			is_landing = false
 	update_ground_dash_cooldown(delta)
 	update_air_dash_reset()
 	if Input.is_action_just_pressed("dash"):
@@ -61,8 +73,20 @@ func _physics_process(delta: float) -> void:
 		handle_jump()
 		variable_jump()
 		move_horizontal(delta)
+	
+	landing_velocity=velocity.y
 		
 	move_and_slide()
+	var landed=!was_on_floor and is_on_floor()
+	
+	if landed and landing_velocity>400:
+		is_landing=true
+		landing_timer=landing_time
+		play_landing_effects()
+	was_on_floor=is_on_floor()
+	if is_landing:
+		play_animation("landing")
+		return
 	update_animation()
 	
 func play_animation(animation_name:String)->void:
@@ -186,6 +210,14 @@ func die()->void:
 	
 func set_respawn_position(position:Vector2)->void:
 	respawn_position=position
+	
+func play_landing_effects()->void:
+	landing_dust_clouds.restart()
+	landing_dust_clouds.emitting=true
+	
+	landing_debris.restart()
+	landing_debris.emitting=true
+	
 	
 	
 	
