@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dork2vqui14e0" path="res://assets/knight/Knight_player/Idle_KG_1.png" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cdt1dq0yn06ua" path="res://assets/knight/Knight_player/Jump_KG_1.png" id="4_fjrip"]
 [ext_resource type="Texture2D" uid="uid://kw18htie3hfq" path="res://assets/knight/Knight_player/Walking_KG_1.png" id="5_smehm"]
-[ext_resource type="Texture2D" uid="uid://dywgwponifbnw" path="res://assets/particles/brackeys_vfx_bundle/particles/alpha/dirt_01_a.png" id="6_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://dgrvy2cu43qt7" path="res://assets/knight/Knight_player/Landing_KG_1.png" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://d3jfy1f0kk1jv" path="res://assets/particles/circle_particle.png" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://dta4u50wegff2" path="res://scripts/camera_controller.gd" id="8_ur7pv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
 atlas = ExtResource("2_qlg0r")
@@ -282,7 +282,7 @@ point_count = 2
 curve = SubResource("Curve_fjrip")
 
 [sub_resource type="Curve" id="Curve_tuyoq"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9246839, 0.05439329), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.95681435, 0.6669456), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_fjrip"]
@@ -290,16 +290,16 @@ curve = SubResource("Curve_tuyoq")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bu601"]
 particle_flag_disable_z = true
-direction = Vector3(0.5, 0.4, 0)
-spread = 107.672
-initial_velocity_min = 30.0
-initial_velocity_max = 70.0
-angular_velocity_min = -616.08
-angular_velocity_max = 282.05997
+direction = Vector3(0.4, 0.7, 0)
+spread = 88.495
+initial_velocity_min = 95.0
+initial_velocity_max = 95.0
+angular_velocity_min = 179.99998
+angular_velocity_max = 179.99998
 radial_velocity_min = -360.82
 radial_velocity_max = 278.34998
-gravity = Vector3(0, 900, 0)
-scale_min = 0.089999996
+gravity = Vector3(0, 650, 0)
+scale_min = 0.12
 scale_max = 0.13
 scale_curve = SubResource("CurveTexture_fjrip")
 color = Color(0.49803922, 0.4509804, 0.4, 1)
@@ -325,28 +325,19 @@ frame_progress = 0.96571267
 shape = SubResource("CapsuleShape2D_x115k")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1947705041]
+position = Vector2(39, 0)
 scale = Vector2(1.6191759, -0.52550244)
 zoom = Vector2(2.5, 2.5)
+script = ExtResource("8_ur7pv")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1316950813]
 
 [node name="jumpDust" type="Node2D" parent="." unique_id=882129430]
 position = Vector2(0, 11)
 
-[node name="dustClouds" type="GPUParticles2D" parent="jumpDust" unique_id=672134900]
-position = Vector2(0, 11)
-emitting = false
-amount = 1
-texture = ExtResource("6_tuyoq")
-lifetime = 0.18000000000000002
-one_shot = true
-trail_lifetime = 0.1
-process_material = SubResource("ParticleProcessMaterial_bu601")
-
 [node name="debris" type="GPUParticles2D" parent="jumpDust" unique_id=1239180765]
-position = Vector2(0, 11)
 emitting = false
-amount = 10
+amount = 26
 texture = ExtResource("7_fjrip")
 lifetime = 0.18000000000000002
 one_shot = true
@@ -356,22 +347,12 @@ process_material = SubResource("ParticleProcessMaterial_bu601")
 [node name="landingDust" type="Node2D" parent="." unique_id=978824480]
 position = Vector2(0, 11)
 
-[node name="dustClouds" type="GPUParticles2D" parent="landingDust" unique_id=1765029578]
-position = Vector2(0, 11)
-emitting = false
-amount = 2
-texture = ExtResource("6_tuyoq")
-lifetime = 0.25
-one_shot = true
-trail_lifetime = 0.1
-process_material = SubResource("ParticleProcessMaterial_bu601")
-
 [node name="debris" type="GPUParticles2D" parent="landingDust" unique_id=1426379787]
-position = Vector2(0, 11)
 emitting = false
-amount = 15
+amount = 26
 texture = ExtResource("7_fjrip")
-lifetime = 0.18000000000000002
+lifetime = 0.12
 one_shot = true
+explosiveness = 1.0
 trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_bu601")
