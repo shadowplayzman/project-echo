@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://78muy0cqusje" path="res://scenes/spike.tscn" id="3_3wv3p"]
 [ext_resource type="PackedScene" uid="uid://b3y3ff38imxk6" path="res://scenes/killzone.tscn" id="4_timdk"]
 [ext_resource type="PackedScene" uid="uid://djde3jx8tqonh" path="res://scenes/checkpoint.tscn" id="5_j0sv7"]
+[ext_resource type="PackedScene" uid="uid://dt5bjjtvli5t8" path="res://scenes/moving_platform.tscn" id="7_4unv2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w20ko"]
 texture = ExtResource("2_w20ko")
@@ -433,3 +434,7 @@ position = Vector2(459, -39)
 
 [node name="spike9" parent="spikes" unique_id=1783573548 instance=ExtResource("3_3wv3p")]
 position = Vector2(473, -39)
+
+[node name="MovingPlatform" parent="." unique_id=2058411502 instance=ExtResource("7_4unv2")]
+position = Vector2(63, -400)
+end_offset = Vector2(300, 80)
